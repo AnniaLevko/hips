@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HIPS</title>
-</head>
-<body>
-    <h1>HIPS ANNIA ERIK</h1>
-    <p></p>
-    <a href='/usuarios_conectados'>Ver usuarios</a>
-</body>
-</html>
+{% extends "my-base.html" %}
+
+{% block main %}
+<div class="espaciado">
+    <a class="btn btn-primary" href="{{ url_for('dar_resultado', program_name='usuarios_conectados')}}"role="button">Ver usuarios conectados</a>
+</div>
+
+{%endblock%}
