@@ -7,7 +7,11 @@
     <title>Resultado</title>
 </head>
 <body>
-    <h1>{{texto}}</h1>
+    <h1>{{titulo}}</h1>
+    {%for linea in texto%}
+        <p style="white-space:pre;">{{linea}}</p>
+    {%endfor%}
+ 
     
 </body>
 </html>
