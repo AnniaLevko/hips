@@ -6,7 +6,7 @@ import re
 # Para saber quienes son los usuarios conectados y desde donde.
 
 try:
-    byte_output = subprocess.check_output("who -H", shell=True) # El retorno es de tipo bytes y no str
+    byte_output = subprocess.check_output("who -H | awk '{print $1, $5}'", shell=True) # El retorno es de tipo bytes y no str
     output = byte_output.decode('utf-8') # decodeamos para que sea str
  
     output_list = output.split('\n')
@@ -19,7 +19,8 @@ try:
     
 
     # Renombramos los headers
-    output_list[0] = "NAME,LINE,DATE,TIME,COMMENT"
+    # output_list[0] = "NAME,LINE,DATE,TIME,COMMENT"
+    output_list[0] = "USER,IP"
 
     # Escribimos en un csv y dejamos los datos de tal manera
     # columna1,columna2,columna3
