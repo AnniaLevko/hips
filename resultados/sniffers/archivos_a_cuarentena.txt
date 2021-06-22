@@ -1,0 +1,8 @@
+2021-06-22 14:58:53.043133 /usr/sbin/tcpdump ---> /cuarentena/sniffer_tools/usr-sbin-tcpdump
+2021-06-22 14:58:53.043148 /usr/share/bash-completion/completions/tcpdump ---> /cuarentena/sniffer_tools/usr-share-bash-completion-completions-tcpdump
+
+2021-06-22 14:59:45.836400 /usr/sbin/tcpdump ---> /cuarentena/sniffer_tools/usr-sbin-tcpdump
+2021-06-22 14:59:45.836413 /usr/share/bash-completion/completions/tcpdump ---> /cuarentena/sniffer_tools/usr-share-bash-completion-completions-tcpdump
+
+2021-06-22 15:02:16.626998 /usr/sbin/tcpdump ---> /cuarentena/sniffer_tools/usr-sbin-tcpdump
+2021-06-22 15:02:16.643267 /usr/share/bash-completion/completions/tcpdump ---> /cuarentena/sniffer_tools/usr-share-bash-completion-completions-tcpdump
