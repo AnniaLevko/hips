@@ -1,7 +1,7 @@
 import subprocess
 import os
 import psycopg2
-from principal import *
+from principal import cur, conn
 
 def borrar_archivos_binarios():
     bd_command = (

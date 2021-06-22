@@ -1,5 +1,5 @@
 import os
-from principal import *
+from principal import cur
 
 
 passwd_dir = "/etc/passwd"
