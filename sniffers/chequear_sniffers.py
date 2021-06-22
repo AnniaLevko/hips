@@ -113,6 +113,8 @@ def check_sniffer_tools():
                         + "\n\n" + "Se procesara a matar el proceso y buscar la herramienta y llevarlo a una carpeta de cuarentena........"
                         )
 
+                    check_libraries(process["pid"]) # imprime si detecto la libreria libpcap en este proceso
+
                     os.system(f"sudo kill -9 {process['pid']}") # Matamos el proceso
                     print(f"Proceso {process['pid']} matado....")
 
@@ -128,6 +130,19 @@ def check_sniffer_tools():
         print(resultados_sniffers_tools)
 
 
+#Detecta si el proceso esta utilizando una libreria de libpcap
+def check_libraries(pid):
+    command = f"sudo lsof -p {pid} -e /run/user/1000/gvfs -e /run/user/1001/gvfs | grep libpcap" # comando parar verificar si la libreria libpcap esta siendo usada
+    resultado_comando = os.popen(command).read().split("\n") # Ejecutamos el comando y guardamos en una lista las lineas
+    resultado_comando.pop(-1)  # Eliminamos el ultimo elemento porque es un string vacio
+    
+    # Si la lista es vacia es porque no encontro nada
+    if not len(resultado_comando):
+        print("No hay libreria de sniffer en esta herramienta...")
+    else:
+        print("Hay libreria de sniffer en esta herramienta...")
+    
+
 
 
 
@@ -137,4 +152,6 @@ def check_sniffer_tools():
 # log_promiscuo_mode()
 # check_net_interfaces()
 check_sniffer_tools()
+
+
 
