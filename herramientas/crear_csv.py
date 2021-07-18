@@ -3,39 +3,33 @@
 def write_csv(carpeta, nombre_archivo, headers_list ,lista, mensaje):
     f = open(f"./resultados/{carpeta}/{nombre_archivo}.csv", "w")
     for index, header in enumerate(headers_list):
-        if index ==0:
-            f.write(f"{header},")
+        if index == len(headers_list)-1:
+            f.write(f"{header}")
         else:
-            f.write(f",{header}")
+            f.write(f"{header},")
     f.write("\n")
 
     for diccionario in lista:
         f.write("\n")
         for index, x in enumerate(diccionario):
-            if index == 0: 
-                f.write(f"{diccionario[x]},")
+            if index == len(diccionario)-1: 
+                f.write(f"{diccionario[x]}")
             else:
-                f.write(f",{diccionario[x]}")
+                f.write(f"{diccionario[x]},")
         
     f.write(f"\n\n{mensaje}")
     f.close()
 
-def append_csv(carpeta, nombre_archivo, headers_list ,lista, mensaje):
+def append_csv(carpeta, nombre_archivo,lista, mensaje):
     f = open(f"./resultados/{carpeta}/{nombre_archivo}.csv", "a")
-    for index, header in enumerate(headers_list):
-        if index ==0:s
-            f.write(f"{header},")
-        else:
-            f.write(f",{header}")
-    f.write("\n")
-
+    
     for diccionario in lista:
         f.write("\n")
         for index, x in enumerate(diccionario):
-            if index == 0: 
-                f.write(f"{diccionario[x]},")
+            if index == len(diccionario)-1: 
+                f.write(f"{diccionario[x]}")
             else:
-                f.write(f",{diccionario[x]}")
+                f.write(f"{diccionario[x]},")
         
     f.write(f"\n\n{mensaje}")
     f.close()
