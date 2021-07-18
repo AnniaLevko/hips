@@ -16,11 +16,14 @@
 
         <tbody>
             {%for row in texto%}
-                <tr>
-                    {% for item in row %}
-                        <td>{{item}}</td>
-                    {%endfor%}
-                </tr>
+                {%if loop.index > 1%}
+                    <tr>
+                        {% for item in row %}
+                            <td>{{item}}</td>
+                        {%endfor%}
+                    </tr>
+                {%endif%}
+            
             {%endfor%}
         </tbody>
 

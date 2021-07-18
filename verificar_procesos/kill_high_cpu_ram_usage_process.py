@@ -1,5 +1,7 @@
 import os
-
+import sys
+sys.path.append('./herramientas/')
+import crear_csv 
 
 
 
@@ -28,7 +30,7 @@ def get_proceso_por_mem_o_cpu(mem_o_cpu=""):
             else:
                 tiempo_ejecutandose = float(tiempo_ejecutandose[0]) * 60 + float(tiempo_ejecutandose[1]) + float(tiempo_ejecutandose[2])/60.0 
             
-            nuevo_objeto["EXECUTION_TIME"] = tiempo_ejecutandose # agregamos al objeto el tiempo de ejecucion
+            nuevo_objeto["EXECUTION_TIME"] = round(tiempo_ejecutandose,2 ) # agregamos al objeto el tiempo de ejecucion
             procesos_mas_memoria[index] = nuevo_objeto
 
         return procesos_mas_memoria
@@ -41,13 +43,12 @@ def get_proceso_por_mem_o_cpu(mem_o_cpu=""):
 
 
 
-def verificar_procesos():
+def verificar_procesos_cpu_ram():
     procesos_mas_memoria = get_proceso_por_mem_o_cpu("mem")
     procesos_mas_cpu = get_proceso_por_mem_o_cpu("cpu")
-
     procesos_a_matar = []
+
     # Revisamos el uso de las memorias
-    
     for proceso in procesos_mas_memoria:
         
         if proceso["%MEM"] > 4.1:
@@ -57,10 +58,7 @@ def verificar_procesos():
                 print(f"el PID {proceso['PID']} se esta ejecutandose por mucho tiempo")
                 print("Se agregara a la lista para matar")
                 proceso["motivo"] = "usa mucha memoria"
-                procesos_a_matar.append(proceso)
-                
-    
-
+                procesos_a_matar.append(proceso)       
     # Revisamos el uso de los cpu
     for proceso in procesos_mas_cpu:
     
@@ -73,11 +71,28 @@ def verificar_procesos():
                 proceso["motivo"] = "usa mucha cpu"
                 procesos_a_matar.append(proceso)
 
-    print(procesos_a_matar)
+    #Escribimos el archivo csv
+    mensaje = "Procesos matados..."
+    headers = ["PID a matar","%MEM","%CPU","Tiempo de ejecucion","motivo"]
+    carpeta = "verificar_procesos"
+    nombre_csv = "kill_high_cpu_ram_usage_process"
+
+    crear_csv.write_csv(mensaje= mensaje, headers_list=headers,lista=procesos_a_matar, carpeta=carpeta,nombre_archivo=nombre_csv)
+    # f = open("./resultados/verificar_procesos/kill_high_cpu_ram_usage_process.csv", "w")
+
+    # if len(procesos_a_matar) >= 1:
+    #     f.write("PID a matar,%MEM,%CPU,Tiempo de ejecucion,motivo\n") # Escribimos los headers del csv
+    #     for index, proceso in enumerate(procesos_a_matar):
+    #         f.write(f"{proceso['PID']},{proceso['%MEM']}%,{proceso['%CPU']}%,{proceso['EXECUTION_TIME']}min, {proceso['motivo']}\n")
+    #     f.write("\n\nProcesos matados...")
+    # f.close()
+
+
+        
 
 
     
 
 
 
-verificar_procesos()
+verificar_procesos_cpu_ram()

@@ -2,7 +2,8 @@
 
 {% block main %}
 <div class="espaciado">
-    <a class="btn btn-primary" href="{{ url_for('dar_resultado', program_name='usuarios_conectados')}}"role="button">Ver usuarios conectados</a>
+    <a class="btn btn-primary" href="/usuarios/usuarios_conectados"role="button">Ver usuarios conectados</a>
+    <a class="btn btn-primary" href="/verificar_procesos/kill_high_cpu_ram_usage_process"role="button">Analizar uso de recursos (RAM Y CPU)</a>
 </div>
 
 {%endblock%}
