@@ -1,3 +1,2 @@
 USER,IP
-erwaen,(tty3)
-annia,(tty4)
+annia,(tty2)

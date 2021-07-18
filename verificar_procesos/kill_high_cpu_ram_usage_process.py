@@ -54,7 +54,7 @@ def verificar_procesos_cpu_ram():
         if proceso["%MEM"] > 4.1:
             print(f"el PID {proceso['PID']} esta consumiendo mucha memoria")
 
-            if proceso["EXECUTION_TIME"] > 120.0:
+            if proceso["EXECUTION_TIME"] > 5.0:
                 print(f"el PID {proceso['PID']} se esta ejecutandose por mucho tiempo")
                 print("Se agregara a la lista para matar")
                 proceso["motivo"] = "usa mucha memoria"
@@ -65,7 +65,7 @@ def verificar_procesos_cpu_ram():
         if proceso["%CPU"] > 4.1:
             print(f"el PID {proceso['PID']} esta consumiendo mucha procesador")
 
-            if proceso["EXECUTION_TIME"] > 120.0:
+            if proceso["EXECUTION_TIME"] > 5.0:
                 print(f"el PID {proceso['PID']} se esta ejecutandose por mucho tiempo")
                 print("Se agregara a la lista para matar")
                 proceso["motivo"] = "usa mucha cpu"

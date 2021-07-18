@@ -3,6 +3,8 @@ import os
 import subprocess
 import datetime
 
+
+
 BLACK_LIST_SNIFFER_TOOLS = ["tcpdump", "ethereal", "wireshark"]
 BLACK_LIST_LIBRARIES = ["libpcap"]
 
@@ -55,7 +57,12 @@ def buscar_y_mover_archivo_cuarentena(file_name):
     path_proyecto = os.path.normpath(script_dir + os.sep + os.pardir) # vuelvo un directorio atras (/home/erwaen/developer/hips)
    
     print(path_proyecto)
-    with open (path_proyecto + '/resultados/sniffers/archivos_a_cuarentena.txt', 'a') as f:
+    append_write = ""
+    if os.path.exists(path_proyecto + '/resultados/sniffers/chequear_sniffer_tools.csv'):
+        append_write = "a"
+    else:
+        append_write = "w"    
+    with open (path_proyecto + '/resultados/sniffers/chequear_sniffer_tools.csv', 'w') as f:
         
         f.write("\n")
         for path in paths_encontrados:
@@ -68,11 +75,12 @@ def buscar_y_mover_archivo_cuarentena(file_name):
 
             time_actual = datetime.datetime.now()
             
-            f.write(str(time_actual)  +" " + path + " ---> " + new_path + "\n")
+            f.write(str(time_actual)  +"," + path + ",--->," + new_path + ",\n")
 
     print(paths_encontrados)
 
 def check_sniffer_tools():
+
     resultados_sniffers_tools = [] # Lista de diccionarios que diga que herramineta se esta ejecutando con su pid y quien
 
     for tool in BLACK_LIST_SNIFFER_TOOLS:
@@ -126,6 +134,15 @@ def check_sniffer_tools():
   
     if not len(resultados_sniffers_tools):
         print("No se encontro ninguna herramienta de sniffer utilizando")
+
+        append_write = ""
+        if os.path.exists('./resultados/sniffers/chequear_sniffer_tools.csv'):
+            append_write = "a"
+        else:
+            append_write = "w"    
+        with open ('./resultados/sniffers/chequear_sniffer_tools.csv', append_write) as f:
+            time_actual = datetime.datetime.now()
+            f.write(f"{time_actual},No se encontre herramientas de sniffer..\n")
     else:
         print(resultados_sniffers_tools)
 

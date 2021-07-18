@@ -4,6 +4,7 @@
 {{super()}}
 <link rel="stylesheet"
       href="{{url_for('.static', filename='css/style.css')}}">
+
 {% endblock %}
 
 {% block title %}Hips{% endblock %}
@@ -61,7 +62,7 @@
 
   {% block footer %}
         <!-- ======= Footer ======= -->
-        <footer id="footer" style="justify-content: center ;position:absolute;bottom: 0; left: 6%; right: 6%;">
+        <footer id="footer" >
 
 
             <div class="footer-top">
@@ -132,5 +133,6 @@
 {% block scripts %}
 
 <script src="{{url_for('.static', filename='scripts/main.js')}}"></script>
+<script src="https://kit.fontawesome.com/9f485ce590.js" crossorigin="anonymous"></script>
 {{super()}}
 {% endblock %}

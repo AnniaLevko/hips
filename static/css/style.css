@@ -894,6 +894,8 @@ section {
   background: #fff;
 }
 
+
+
 .services .icon-box .icon {
   margin: 0 auto;
   width: 64px;
@@ -1787,4 +1789,12 @@ section {
 
 html,body {
   height: 100%;
+}
+
+.fas{
+  margin-right: 10px;
+}
+
+.row{
+  margin-bottom: 30px;
 }
