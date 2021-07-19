@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./herramientas",
+        "./base_de_datos"
+    ]
+}

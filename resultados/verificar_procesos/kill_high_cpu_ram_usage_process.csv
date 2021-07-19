@@ -1,10 +1,8 @@
 PID a matar,%MEM,%CPU,Tiempo de ejecucion,motivo
 
-3394,8.3,37.5,219.63,usa mucha memoria
-20523,5.3,7.6,89.58,usa mucha memoria
-18508,4.8,1.3,111.32,usa mucha memoria
-18714,4.2,1.4,111.28,usa mucha memoria
-3394,8.3,37.5,219.63,usa mucha cpu
-20523,5.3,7.6,89.58,usa mucha cpu
+3404,8.3,26.5,163.48,usa mucha memoria
+4867,5.1,4.1,163.03,usa mucha memoria
+5474,5.0,0.7,162.12,usa mucha memoria
+3404,8.3,26.5,163.48,usa mucha cpu
 
 Procesos matados...
