@@ -20,7 +20,7 @@ from principal import cur
 
 
 class LoginForm(FlaskForm):
-    email = StringField(label='Email', validators=[DataRequired()])
+    email = StringField(label='Username', validators=[DataRequired()])
     password = PasswordField(label='Password', validators=[DataRequired()])
     submit = SubmitField(label="Log In") 
 
@@ -38,7 +38,6 @@ login_manager.init_app(app)
 
 
 class User(UserMixin, db.Model):
-
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(24), unique = True)
@@ -84,7 +83,6 @@ def dar_resultado(folder, program_name):
     return render_template("verResultado.html", texto = list_of_rows, titulo = titulo)
 
 
-
 @app.route("/login", methods = ["GET", "POST"])
 def login():
     login_form = LoginForm()
@@ -98,7 +96,8 @@ def login():
 
         # Buscamos el usuario en la base de datos
         user_obj = User.query.filter_by(username=usernamexd).first()
-        print(user_obj.username, user_obj.password)
+        if user_obj is None:
+            return render_template("denied.html", form=login_form)
         if check_password_hash(user_obj.password, password):
             print("coincidio")
             login_user(user_obj)
