@@ -60,7 +60,7 @@ def verificar_log_secure_mail():
     if lista_para_csv:
         asunto_mail = 'Se encontraron cantidad masiva de auth failure de smtp en /var/log/secure!'
         mensaje = "Se cambio la contrasenha de estos usuarios y se envio al mail del administrador las nuevas contrasenhas."
-        enviar_mail.enviar_mail_asunto_body(tipo_alerta = "ALERTA!", asunto= asunto_mail, cuerpo=cuerpo_mail) 
+        enviar_mail.enviar_mail_asunto_body(tipo_alerta = "PREVENCION!", asunto= asunto_mail, cuerpo=cuerpo_mail) 
 
     crear_csv.write_csv(carpeta="verificar_logs", nombre_archivo="var_log_secure_mails", lista=lista_para_csv, mensaje=mensaje, headers_list=headers)
 

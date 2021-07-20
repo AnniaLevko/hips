@@ -57,7 +57,7 @@ def verificar_ataques_smtp_messages():
     if lista_para_csv:
         asunto_mail = 'MASIVOS AUTHS FAILURES de SMTP en /var/log/messages!'
         mensaje = "Se cambio la contrasenha de estos usuarios y se envio al mail del administrador las nuevas contrasenhas."
-        enviar_mail.enviar_mail_asunto_body(tipo_alerta='ALERTA!',asunto= asunto_mail, cuerpo=cuerpo_mail) # Envia el mail al administrador
+        enviar_mail.enviar_mail_asunto_body(tipo_alerta='PREVENCION!', asunto= asunto_mail, cuerpo=cuerpo_mail) # Envia el mail al administrador
 
     # Creamos el csv para mostrar en la web despues.
     crear_csv.write_csv(carpeta="verificar_logs", nombre_archivo="ataque_smtp_messages", lista=lista_para_csv, mensaje=mensaje, headers_list=headers)

@@ -1798,3 +1798,13 @@ html,body {
 .row{
   margin-bottom: 30px;
 }
+
+.boton_ewe_al{
+  background-color: #106eea;
+}
+
+.boton_ewe_al:hover{
+  background-color: white;
+  color:#106eea;
+  border-color: #106eea;
+}

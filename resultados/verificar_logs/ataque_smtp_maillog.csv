@@ -1,0 +1,5 @@
+Email involucrado,motivo
+
+condorito@uca.edu.py,Muchos mails de smtp de este mismo correo se encontro en el archivo /var/log/maillog
+
+Se cambio la contrasenha de estos usuarios y se envio al mail del administrador las nuevas contrasenhas.
