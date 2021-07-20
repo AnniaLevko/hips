@@ -14,7 +14,7 @@ def generar_contrasenha_nueva():
     return contrasenha
 
 def verificar_log_secure_mail():
-    command_to_execute = "sudo cat /var/log/secure |grep -i 'smtp:auth' | grep -i 'authentication failure'"
+    command_to_execute = "sudo cat /var/log/secure | grep -i 'smtp:auth' | grep -i 'authentication failure'"
     secure_file_content = os.popen(command_to_execute).read().split("\n")
     secure_file_content.pop(-1)
 
@@ -37,10 +37,10 @@ def verificar_log_secure_mail():
             if usuarios_contador[usuario] == 50:
                 #Cambiamos contrasenha
                 contrasenha_a_cambiar = generar_contrasenha_nueva()
-                print("contrasenha:",contrasenha_a_cambiar)
+                
                 comando_actualizar_contrasenha = f"sudo echo '{usuario}:{contrasenha_a_cambiar}' | chpasswd"
                 os.system(comando_actualizar_contrasenha)
-                print("contrasenha cambiada para el usuario:", usuario)
+                
 
                 csv_diccionario = {
                     'usuario': usuario,

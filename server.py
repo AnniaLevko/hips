@@ -72,12 +72,13 @@ def dar_resultado(folder, program_name):
 
     subprocess.run(["python3", f"./{folder}/{program_name}.py"]) # Corremos el programita en el cual guarda en un <program_name>.txt y .csv su resultado
 
+    # Leemos el csv para obtener las lineas y enviar al html
     with open(f"./resultados/{folder}/{program_name}.csv", newline='') as csv_file:
         csv_data = csv.reader(csv_file, delimiter = ',')
         list_of_rows = []
         for row in csv_data:
             list_of_rows.append(row)
-        print(list_of_rows)
+        
         
     # Renderizamos el template verResultado.html con el texto (resultado de la funcion) y su titulo (nombre del programa que se ejecuto)
     return render_template("verResultado.html", texto = list_of_rows, titulo = titulo)

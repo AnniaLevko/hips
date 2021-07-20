@@ -26,16 +26,9 @@ try:
     # columna1,columna2,columna3
     # erwaen,daskldjls, fdsflsfsd
     # annia,dsjakdasjd, fdksladl
-    with open ('./resultados/usuarios_conectados.csv', 'w') as csv_file:
+    with open ('./resultados/usuarios/usuarios_conectados.csv', 'w') as csv_file:
         for item in output_list:
             csv_file.write(item + "\n")
-
-
-    # Creamos o Reescribimos en un txt con el nombre de este programa .py
-    # NO SE TODAVIA SI VAMOS A USAR ESTO.
-    with open("./resultados/usuarios_conectados.txt", "w") as f:
-        for out in output_list:
-            f.write(out + "\n")
         
     
 except Exception:
