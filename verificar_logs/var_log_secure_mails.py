@@ -1,9 +1,11 @@
 import os
 import string
 import random
+import datetime as dt
 import sys
 sys.path.append('./herramientas/')
-import crear_csv
+import crear_csv, enviar_mail
+
 
 def generar_contrasenha_nueva():
     contrasenha_caracteres = string.ascii_letters + string.digits + string.punctuation
@@ -18,6 +20,8 @@ def verificar_log_secure_mail():
 
     usuarios_contador = {}
     lista_para_csv = []
+    cuerpo_mail = ''
+    asunto_mail = ''
     
 
     for linea in secure_file_content:
@@ -43,16 +47,23 @@ def verificar_log_secure_mail():
                     'motivo': 'Muchas entradas de auth failure de stmp en el archivo /var/log/secure'
                 }
                 lista_para_csv.append(csv_diccionario)
+                cuerpo_mail = cuerpo_mail + '\n' + f"Muchas entradas de auth failure de stmp en el usuario: {csv_diccionario['usuario']}, se cambio su contrasenha a --> '{contrasenha_a_cambiar}'\n"
 
         else:
             usuarios_contador[usuario] = 1 # Si no existe, agregamos al usuario en el diccionario e inicializamos su contador en 1
-        
+    
+    #Procedemos a crear el csv para mostrar en la pagina web
     headers = ["Usuario involucrado", "motivo"]
     mensaje ='No se encontro ningun comportamiento extranho en auth de smtp'
+
+    # Si se encuentra comportamiento extranho, escribimos el mensaje del csv y enviamos una alerta(mail) al admin
     if lista_para_csv:
-        mensaje = "Se cambio la contrasenha de estos usuarios y se envio al mail del administrador la nueva contrasenha."
+        asunto_mail = 'Se encontraron cantidad masiva de auth failure de stmp en /var/log/secure!'
+        mensaje = "Se cambio la contrasenha de estos usuarios y se envio al mail del administrador las nuevas contrasenhas."
+        enviar_mail.enviar_mail_asunto_body(asunto= asunto_mail, cuerpo=cuerpo_mail) 
 
     crear_csv.write_csv(carpeta="verificar_logs", nombre_archivo="var_log_secure_mails", lista=lista_para_csv, mensaje=mensaje, headers_list=headers)
+
         
         
 
