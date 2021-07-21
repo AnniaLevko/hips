@@ -24,7 +24,7 @@ def verificar_access_log():
                 lista_para_csv.append(csv_diccionario)
 
                 bloquear_ip.bloquear_ip(ip) # bloqueamos la ip 
-                cuerpo_mail = cuerpo_mail = cuerpo_mail + '\n' + f"Muchos errores de carga de paginas por parte del IP: '{ip}', se procedio a bloquear el IP.\n"
+                cuerpo_mail = cuerpo_mail + '\n' + f"Muchos errores de carga de paginas por parte del IP: '{ip}', se procedio a bloquear el IP.\n"
         else:
             ip_contador[ip] = 1
 
