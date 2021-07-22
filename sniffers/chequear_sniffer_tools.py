@@ -3,7 +3,9 @@ import os
 import subprocess
 import datetime
 
-
+import sys
+sys.path.append('./herramientas/')
+import crear_csv, enviar_mail, escribir_log
 
 BLACK_LIST_SNIFFER_TOOLS = ["tcpdump", "ethereal", "wireshark"]
 BLACK_LIST_LIBRARIES = ["libpcap"]
@@ -14,39 +16,7 @@ NET_INT_TO_CHECK = ["lo", "virbr0", "virbr0-nic", "enp0s3"]
 
 USERS_ALLOWED_TO_USE_SNIFFER_TOOLS = ["erwaen", "root"]
 
-def log_promiscuo_mode(): 
-    resultado_comando = os.popen(LOGS_NET_INT_PROMISCOUS_COMMAND).read().split("\n")
-    resultado_comando.pop(-1)
-    print(resultado_comando)
-    print("\n\n")
-
-def check_net_interfaces():
-    promis_nets_active = []
-    for net_int in NET_INT_TO_CHECK:
-        command = f"ip a show {net_int} | grep -i promisc"
-        resultado_ip_command = os.popen(command).read()
-        print(resultado_ip_command)
-        net_interface = {
-            "int_name": "",
-            "is_mode_promiscuo": ""
-        }
-
-        net_interface["int_name"] = net_int
-
-        if "promisc" in resultado_ip_command.lower():
-            
-            net_interface["is_mode_promiscuo"] = "YES"
-            print(f"La interfaz de red '{net_int}' esta en modo promiscuo")
-        else:
-            net_interface["is_mode_promiscuo"] = "NO"
-
-        promis_nets_active.append(net_interface)
-
-    print(promis_nets_active)
-
-
-
-
+ 
 
 def buscar_y_mover_archivo_cuarentena(file_name):
     command = f"sudo find / -name {file_name} 2>/dev/null -type f" # buscamos en toda la raiz (/) el archivo, y solo queremos lo que son archivos y no directorios (type -f)
@@ -62,7 +32,7 @@ def buscar_y_mover_archivo_cuarentena(file_name):
         append_write = "a"
     else:
         append_write = "w"    
-    with open (path_proyecto + '/resultados/sniffers/chequear_sniffer_tools.csv', 'w') as f:
+    with open (path_proyecto + '/resultados/sniffers/chequear_sniffer_tools.csv', append_write) as f:
         
         f.write("\n")
         for path in paths_encontrados:
@@ -82,6 +52,9 @@ def buscar_y_mover_archivo_cuarentena(file_name):
 def check_sniffer_tools():
 
     resultados_sniffers_tools = [] # Lista de diccionarios que diga que herramineta se esta ejecutando con su pid y quien
+
+    
+    cuerpo_mail = asunto_mail = ''
 
     for tool in BLACK_LIST_SNIFFER_TOOLS:
 
@@ -109,6 +82,7 @@ def check_sniffer_tools():
                     
                     if user.lower() in result.lower():
                         process["habilitado"] = "SI"
+                        escribir_log.escribir_log(alarmas_o_prevencion='alarmas', tipo_alarma='SNIFFER TOOL', ip_o_email= user, motivo=f"Se detecto una herramienta de sniffer: '{tool}' pero el usuario '{user}' esta habilitado para usar." )
                         print(f"Se detecto una herramienta de sniffer: '{tool}' pero el usuario '{user}' esta habilitado para usar.")
                     else:
                         counter = counter + 1
@@ -119,15 +93,19 @@ def check_sniffer_tools():
                     print(
                         f"El usuario '{process['user']}'esta ejecutando la herramienta de sniffer ({tool}) pero este usuario no se encuentra en la lista blanca."
                         + "\n\n" + "Se procesara a matar el proceso y buscar la herramienta y llevarlo a una carpeta de cuarentena........"
-                        )
-
-                    check_libraries(process["pid"]) # imprime si detecto la libreria libpcap en este proceso
+                    )
+                    
+                    process['usa libreria sniffer'] = check_libraries(process["pid"]) # imprime si detecto la libreria libpcap en este proceso
 
                     os.system(f"sudo kill -9 {process['pid']}") # Matamos el proceso
                     print(f"Proceso {process['pid']} matado....")
 
                     buscar_y_mover_archivo_cuarentena(tool)
+                    cuerpo_mail = cuerpo_mail + f"\nEl usuario {process['user']} esta ejecutando la herramienta de sniffer ({tool}) pero este usuario no se encuentra en la lista blanca. Se mato el proceso, se busco la herramienta y se llevo a una carpeta de cuarentena.\n"
+                    escribir_log.escribir_log(alarmas_o_prevencion='prevencion', tipo_alarma='SNIFFER TOOL', ip_o_email=user, motivo= f"El usuario {process['user']} esta ejecutando la herramienta de sniffer ({tool}) pero este usuario no se encuentra en la lista blanca. Se mato el proceso, se busco la herramienta y se llevo a una carpeta de cuarentena.")
                     print("Archivo encontrado y movido a cuarentena....")
+                    
+                    
 
 
                 resultados_sniffers_tools.append(process)
@@ -135,29 +113,39 @@ def check_sniffer_tools():
     if not len(resultados_sniffers_tools):
         print("No se encontro ninguna herramienta de sniffer utilizando")
 
-        append_write = ""
-        if os.path.exists('./resultados/sniffers/chequear_sniffer_tools.csv'):
-            append_write = "a"
-        else:
-            append_write = "w"    
-        with open ('./resultados/sniffers/chequear_sniffer_tools.csv', append_write) as f:
-            time_actual = datetime.datetime.now()
-            f.write(f"{time_actual},No se encontre herramientas de sniffer..\n")
+        crear_csv.write_csv(
+            carpeta='sniffers', 
+            nombre_archivo='chequear_sniffer_tools', 
+            headers_list=['Usuario', 'PID','comando', 'habilitado', 'usa libreria sniffer'], 
+            lista=resultados_sniffers_tools, 
+            mensaje="no se encontro herramientras de sniffer"
+        )
     else:
-        print(resultados_sniffers_tools)
+        enviar_mail.enviar_mail_asunto_body(
+            tipo_alerta="PREVENCION", 
+            asunto="SE ENCONTRO HERRAMIENTA SNIFFER!", 
+            cuerpo=cuerpo_mail
+        )
+        crear_csv.write_csv(
+            carpeta='sniffers', 
+            nombre_archivo='chequear_sniffer_tools', 
+            headers_list=['Usuario', 'PID','comando', 'habilitado', 'usa libreria sniffer'], 
+            lista=resultados_sniffers_tools, 
+            mensaje="Los procesos que no estan habilitados se procedio a matar buscar la herramienta y moverlo a cuarentena"
+        )
 
 
 #Detecta si el proceso esta utilizando una libreria de libpcap
 def check_libraries(pid):
-    command = f"sudo lsof -p {pid} -e /run/user/1000/gvfs -e /run/user/1001/gvfs | grep libpcap" # comando parar verificar si la libreria libpcap esta siendo usada
+    command = f"sudo lsof -p {pid} -e /run/user/1000/gvfs  | grep libpcap" # comando parar verificar si la libreria libpcap esta siendo usada
     resultado_comando = os.popen(command).read().split("\n") # Ejecutamos el comando y guardamos en una lista las lineas
     resultado_comando.pop(-1)  # Eliminamos el ultimo elemento porque es un string vacio
-    
+    print(resultado_comando)
     # Si la lista es vacia es porque no encontro nada
     if not len(resultado_comando):
-        print("No hay libreria de sniffer en esta herramienta...")
+        return "no"
     else:
-        print("Hay libreria de sniffer en esta herramienta...")
+        return "yes"
     
 
 
@@ -169,6 +157,8 @@ def check_libraries(pid):
 # log_promiscuo_mode()
 # check_net_interfaces()
 check_sniffer_tools()
+
+
 
 
 

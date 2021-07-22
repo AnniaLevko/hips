@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append('./herramientas/')
-import crear_csv, enviar_mail, bloquear_ip
+import crear_csv, enviar_mail, bloquear_ip, escribir_log
 
 def verificar_access_log():
     command_to_execute = "sudo cat /var/log/httpd/access.log | grep -i 'HTTP' | grep -i '404'"
@@ -22,7 +22,7 @@ def verificar_access_log():
                     'motivo': 'Muchas errores de carga de paginas desde un mismo IP'
                 }
                 lista_para_csv.append(csv_diccionario)
-
+                escribir_log.escribir_log(alarmas_o_prevencion='prevencion', tipo_alarma='MASIVOS 404', ip_o_email=ip, motivo='Se registraron muchas respuestas 404 desde la misma IP, se bloqueo el IP')
                 bloquear_ip.bloquear_ip(ip) # bloqueamos la ip 
                 cuerpo_mail = cuerpo_mail + '\n' + f"Muchos errores de carga de paginas por parte del IP: '{ip}', se procedio a bloquear el IP.\n"
         else:

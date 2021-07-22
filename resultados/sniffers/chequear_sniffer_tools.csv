@@ -1,38 +1,4 @@
+Usuario,PID,comando,habilitado,usa libreria sniffer
 
-2021-07-18 02:53:30.491006,/usr/sbin/tcpdump,--->,/cuarentena/sniffer_tools/usr-sbin-tcpdump,
-2021-07-18 02:53:30.534297,/usr/share/bash-completion/completions/tcpdump,--->,/cuarentena/sniffer_tools/usr-share-bash-completion-completions-tcpdump,
-No se encontre herramientas de sniffer..
-No se encontre herramientas de sniffer..
-2021-07-18 02:55:05.392604,No se encontre herramientas de sniffer..
-2021-07-18 02:55:08.025916,No se encontre herramientas de sniffer..
-2021-07-18 02:55:11.209008,No se encontre herramientas de sniffer..
-2021-07-18 02:55:12.450346,No se encontre herramientas de sniffer..
-2021-07-18 02:55:13.787317,No se encontre herramientas de sniffer..
-2021-07-18 02:55:15.017603,No se encontre herramientas de sniffer..
-2021-07-18 02:55:16.450560,No se encontre herramientas de sniffer..
-2021-07-18 02:55:17.727525,No se encontre herramientas de sniffer..
-2021-07-18 02:55:19.137759,No se encontre herramientas de sniffer..
-2021-07-18 02:55:20.249540,No se encontre herramientas de sniffer..
-2021-07-18 02:55:24.989297,No se encontre herramientas de sniffer..
-2021-07-18 02:55:26.183756,No se encontre herramientas de sniffer..
-2021-07-18 02:55:39.280914,No se encontre herramientas de sniffer..
-2021-07-18 02:55:41.312899,No se encontre herramientas de sniffer..
-2021-07-18 02:55:42.394975,No se encontre herramientas de sniffer..
-2021-07-18 02:55:44.011324,No se encontre herramientas de sniffer..
-2021-07-18 02:56:03.674345,No se encontre herramientas de sniffer..
-2021-07-18 03:07:33.879964,No se encontre herramientas de sniffer..
-2021-07-18 03:07:37.680349,No se encontre herramientas de sniffer..
-2021-07-18 14:21:24.358513,No se encontre herramientas de sniffer..
-2021-07-18 14:24:13.378318,No se encontre herramientas de sniffer..
-2021-07-18 14:24:33.156517,No se encontre herramientas de sniffer..
-2021-07-18 16:04:33.581855,No se encontre herramientas de sniffer..
-2021-07-18 16:15:00.734509,No se encontre herramientas de sniffer..
-2021-07-18 16:18:18.813283,No se encontre herramientas de sniffer..
-2021-07-18 21:03:50.784878,No se encontre herramientas de sniffer..
-2021-07-19 11:31:02.036218,No se encontre herramientas de sniffer..
-2021-07-19 11:31:07.509390,No se encontre herramientas de sniffer..
-2021-07-19 11:43:52.240732,No se encontre herramientas de sniffer..
-2021-07-19 14:12:48.348299,No se encontre herramientas de sniffer..
-2021-07-19 14:13:00.960402,No se encontre herramientas de sniffer..
-2021-07-19 14:37:25.241390,No se encontre herramientas de sniffer..
-2021-07-19 14:37:28.577778,No se encontre herramientas de sniffer..
+
+no se encontro herramientras de sniffer

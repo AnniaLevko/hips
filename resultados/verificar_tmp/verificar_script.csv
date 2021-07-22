@@ -1,40 +1,6 @@
 Ruta_origen,Ruta_destino,Motivo
 
-
-No se encontro archivos sospechosos en /tmp/
-/tmp/archivo_malioso,/cuarentena/tmp_scripts/tmp-archivo_malioso,Es un archivo tipo script
 /tmp/no_es_hack.py,/cuarentena/tmp_scripts/tmp-no_es_hack.py,Es un archivo tipo con extension sospechosa (.py .sh etc)
-
-Ya se movio los ultimos archivos
-
-No se encontro archivos sospechosos en /tmp/
-
-No se encontro archivos sospechosos en /tmp/
-
-No se encontro archivos sospechosos en /tmp/
-
-No se encontro archivos sospechosos en /tmp/
-
-No se encontro archivos sospechosos en /tmp/
-
-No se encontro archivos sospechosos en /tmp/
-
-No se encontro archivos sospechosos en /tmp/
-/tmp/pyright-5087-a1Rgx64lY2EY/builtins-5087-qGRqhmMLKjSw-.py,/cuarentena/tmp_scripts/tmp-pyright-5087-a1Rgx64lY2EY-builtins-5087-qGRqhmMLKjSw-.py,Es un archivo tipo con extension sospechosa (.py .sh etc)
-/tmp/pyright-5087-a1Rgx64lY2EY/sys-5087-3btGJ14taIx5-.py,/cuarentena/tmp_scripts/tmp-pyright-5087-a1Rgx64lY2EY-sys-5087-3btGJ14taIx5-.py,Es un archivo tipo con extension sospechosa (.py .sh etc)
-/tmp/pyright-5087-a1Rgx64lY2EY/builtins-5087-sx7MFv3IFSap-.py,/cuarentena/tmp_scripts/tmp-pyright-5087-a1Rgx64lY2EY-builtins-5087-sx7MFv3IFSap-.py,Es un archivo tipo con extension sospechosa (.py .sh etc)
-
-Ya se movio los ultimos archivos
-
-No se encontro archivos sospechosos en /tmp/
-
-No se encontro archivos sospechosos en /tmp/
-
-No se encontro archivos sospechosos en /tmp/
-
-No se encontro archivos sospechosos en /tmp/
-/tmp/pyright-5087-a1Rgx64lY2EY/builtins-5087-vi2P27h462R5-.py,/cuarentena/tmp_scripts/tmp-pyright-5087-a1Rgx64lY2EY-builtins-5087-vi2P27h462R5-.py,Es un archivo tipo con extension sospechosa (.py .sh etc)
-/tmp/pyright-5087-a1Rgx64lY2EY/posix-5087-5HQBEyxnkjA1-.py,/cuarentena/tmp_scripts/tmp-pyright-5087-a1Rgx64lY2EY-posix-5087-5HQBEyxnkjA1-.py,Es un archivo tipo con extension sospechosa (.py .sh etc)
-/tmp/pyright-5385-3nZWeSMnVG5S/builtins-5385-bl9ASfGqX3dz-.py,/cuarentena/tmp_scripts/tmp-pyright-5385-3nZWeSMnVG5S-builtins-5385-bl9ASfGqX3dz-.py,Es un archivo tipo con extension sospechosa (.py .sh etc)
+/tmp/archivo_malioso,/cuarentena/tmp_scripts/tmp-archivo_malioso,Es un archivo tipo script (#!)
 
 Ya se movio los ultimos archivos

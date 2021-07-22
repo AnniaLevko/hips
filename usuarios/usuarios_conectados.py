@@ -17,6 +17,8 @@ try:
     for index, item in enumerate(output_list):
         output_list[index] = re.sub("\s+", ",", item.strip())
     
+        
+    
 
     # Renombramos los headers
     # output_list[0] = "NAME,LINE,DATE,TIME,COMMENT"

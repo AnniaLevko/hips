@@ -4,7 +4,7 @@ import random
 import datetime as dt
 import sys
 sys.path.append('./herramientas/')
-import crear_csv, enviar_mail
+import crear_csv, enviar_mail, escribir_log
 
 
 def generar_contrasenha_nueva():
@@ -48,6 +48,7 @@ def verificar_log_secure_mail():
                 }
                 lista_para_csv.append(csv_diccionario)
                 cuerpo_mail = cuerpo_mail + '\n' + f"Muchas entradas de auth failure de stmp en el usuario: {csv_diccionario['usuario']}, se cambio su contrasenha a --> '{contrasenha_a_cambiar}'\n"
+                escribir_log.escribir_log(alarmas_o_prevencion='prevencion', tipo_alarma='Auth ATTACK', ip_o_email=usuario, motivo='Muchas entradas de auth failure de stmp en el usuario, se cambio la contrasenha')
 
         else:
             usuarios_contador[usuario] = 1 # Si no existe, agregamos al usuario en el diccionario e inicializamos su contador en 1

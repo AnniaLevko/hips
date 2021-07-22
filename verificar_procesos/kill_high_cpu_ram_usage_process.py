@@ -1,7 +1,8 @@
 import os
 import sys
+
 sys.path.append('./herramientas/')
-import crear_csv 
+import crear_csv, escribir_log, enviar_mail
 
 
 
@@ -42,37 +43,53 @@ def get_proceso_por_mem_o_cpu(mem_o_cpu=""):
         return mensaje
 
 
-
+# Se verifica que los recursos (CPU, RAM) no esten siendo abusados por parte de algun proceso
+# En el caso de que se encuentre un proceso que abusa, se mata, se registra en logs de prevencion y se avisa al administrador por mail
 def verificar_procesos_cpu_ram():
     procesos_mas_memoria = get_proceso_por_mem_o_cpu("mem")
     procesos_mas_cpu = get_proceso_por_mem_o_cpu("cpu")
     procesos_a_matar = []
+    cuerpo_email = ''
 
     # Revisamos el uso de las memorias
     for proceso in procesos_mas_memoria:
-        
-        if proceso["%MEM"] > 4.1:
-            print(f"el PID {proceso['PID']} esta consumiendo mucha memoria")
-
-            if proceso["EXECUTION_TIME"] > 5.0:
-                print(f"el PID {proceso['PID']} se esta ejecutandose por mucho tiempo")
-                print("Se agregara a la lista para matar")
+        #Si el consumo de ram supera el 80%
+        if proceso["%MEM"] > 80.0:
+      
+            # Si el tiempo de uso de ram supera mas de 3 minutos
+            if proceso["EXECUTION_TIME"] > 3.0:
+                escribir_log.escribir_log(alarmas_o_prevencion='prevencion', tipo_alarma='MUCHA_RAM', ip_o_email=proceso['PID'], motivo='el proceso uso mucho recursos de memoria en bastante tiempo, se procedio a matarlo')
+                cuerpo_email = cuerpo_email + f"\nEl proceso {proceso['PID']} esta usando mucha memoria, se procedio a matarlo\n"
+                
                 proceso["motivo"] = "usa mucha memoria"
                 procesos_a_matar.append(proceso)       
     # Revisamos el uso de los cpu
     for proceso in procesos_mas_cpu:
-    
-        if proceso["%CPU"] > 4.1:
-            print(f"el PID {proceso['PID']} esta consumiendo mucha procesador")
+        
+        #Si el consumo de CPU supera el 80%
+        if proceso["%CPU"] > 80.0:
+         
 
-            if proceso["EXECUTION_TIME"] > 5.0:
-                print(f"el PID {proceso['PID']} se esta ejecutandose por mucho tiempo")
-                print("Se agregara a la lista para matar")
+            if proceso["EXECUTION_TIME"] > 3.0:
+                escribir_log.escribir_log(alarmas_o_prevencion='prevencion', tipo_alarma='MUCHA_CPU', ip_o_email=proceso['PID'], motivo='el proceso uso mucho recursos de CPU en bastante tiempo, se procedio a matarlo')
+                cuerpo_email = cuerpo_email + f"\nEl proceso {proceso['PID']} esta usando mucha CPU, se procedio a matarlo\n"
+                
                 proceso["motivo"] = "usa mucha cpu"
                 procesos_a_matar.append(proceso)
 
+    #Procedemos a matar los procesos que abusaron de los recursos
+    for proceso in procesos_a_matar:
+        try:
+            os.system(f"sudo kill -9 {proceso['PID']}") # Matamos el proceso
+        except Exception:
+            print(f"error al matar el proceso, {proceso['PID']}, ya se mato o no existe.")
+
     #Escribimos el archivo csv
-    mensaje = "Procesos matados..."
+    mensaje = "No hubo consumo de recursos excesivos"
+    if procesos_a_matar:
+        mensaje = "Procesos matados.."
+        enviar_mail.enviar_mail_asunto_body(tipo_alerta='Prevencion!', asunto="MUCHO USO DE RECURSOS", cuerpo= cuerpo_email)
+    
     headers = ["PID a matar","%MEM","%CPU","Tiempo de ejecucion","motivo"]
     carpeta = "verificar_procesos"
     nombre_csv = "kill_high_cpu_ram_usage_process"

@@ -2,7 +2,7 @@ import os
 
 import sys
 sys.path.append('./herramientas/')
-import crear_csv 
+import crear_csv, escribir_log, enviar_mail
 
 # Verificamos si hay archivos en /tmp que contengan al comienzo #!
 def verificar_script():
@@ -10,6 +10,7 @@ def verificar_script():
     archivos = os.popen(command).read().split()
     
     archivos_a_cuarentena = []
+    cuerpo_email = ''
     # Procedemos a verificar los archivos
     for archivo in archivos:
         new_diccionary = {}
@@ -20,6 +21,13 @@ def verificar_script():
             new_diccionary['ruta_a_mover'] = "/cuarentena/tmp_scripts/" + archivo[1:].replace("/", "-")
             new_diccionary['motivo'] = "Es un archivo tipo con extension sospechosa (.py .sh etc)"
             archivos_a_cuarentena.append(new_diccionary)
+            cuerpo_email = cuerpo_email + f"\nSe encontro el archivo {new_diccionary['ruta_archivo']} con extension sospechosa (.py, .sh, etc), se envio a cuarentena.\n"
+            escribir_log.escribir_log(
+                alarmas_o_prevencion='prevencion', 
+                tipo_alarma='SCRIPT TMP', 
+                motivo='Se encontro un archivo con extension sospechosa, se movio a cuarentena', 
+                ip_o_email=new_diccionary['ruta_archivo']
+            )
         else: # Si no, busca si el archivo tiene un #! en la primera linea, lo cual significa que es un archivo script
             try:     
                 with open(f"{archivo}", "r") as f:
@@ -29,6 +37,13 @@ def verificar_script():
                         new_diccionary['ruta_a_mover'] = "/cuarentena/tmp_scripts/" + archivo[1:].replace("/", "-")
                         new_diccionary['motivo'] = "Es un archivo tipo script (#!)"
                         archivos_a_cuarentena.append(new_diccionary)
+                        cuerpo_email = cuerpo_email + f"\nSe encontro un archivo de tipo script {new_diccionary['ruta_archivo']} (#! primera linea), se movio a cuarentena\n"
+                        escribir_log.escribir_log(
+                            alarmas_o_prevencion='prevencion', 
+                            tipo_alarma='SCRIPT TMP', 
+                            motivo='Se encontro un archivo de tipo script (#! primera linea), se movio a cuarentena', 
+                            ip_o_email=new_diccionary['ruta_archivo']
+                        )
             except Exception:
                 print("El archivo esta codeado en bytes")
         
@@ -43,15 +58,14 @@ def verificar_script():
     #Procedemos a escribir en el archivo
     if archivos_a_cuarentena:    
         mensaje = "Ya se movio los ultimos archivos"
+        enviar_mail.enviar_mail_asunto_body(tipo_alerta='PREVENCION!', asunto="SE ENCONTRO SCRIPTS EN /tmp", cuerpo=cuerpo_email)
     else:
         mensaje = "No se encontro archivos sospechosos en /tmp/"
     carpeta = "verificar_tmp"
     archivo_csv = "verificar_script"
     headers = ["Ruta_origen", "Ruta_destino", "Motivo"]
-    if os.path.exists(f'./resultados/{carpeta}/{archivo_csv}.csv'):
-        crear_csv.append_csv(mensaje=mensaje, carpeta=carpeta, nombre_archivo=archivo_csv, lista=archivos_a_cuarentena )
-    else:
-        crear_csv.write_csv(mensaje = mensaje, carpeta=carpeta, nombre_archivo=archivo_csv, lista = archivos_a_cuarentena, headers_list = headers)
+
+    crear_csv.write_csv(mensaje = mensaje, carpeta=carpeta, nombre_archivo=archivo_csv, lista = archivos_a_cuarentena, headers_list = headers)
     
 
     

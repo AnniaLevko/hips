@@ -1,7 +1,7 @@
 import os
 import sys
 sys.path.append('./herramientas/')
-import crear_csv, enviar_mail, bloquear_email
+import crear_csv, enviar_mail, bloquear_email, escribir_log
 
 
 # Buscamos el authid en los logs de /var/log/maillog
@@ -25,7 +25,7 @@ def verificar_ataques_smtp_maillog():
                     'motivo': 'Muchos mails de smtp de este mismo correo se encontro en el archivo /var/log/maillog'
                 }
                 lista_para_csv.append(csv_diccionario)
-
+                escribir_log.escribir_log(alarmas_o_prevencion='prevencion', tipo_alarma='Email Bomb', ip_o_email=email, motivo='Se registraron muchos mails por parte de este email, se paso a bloquear el email.')
                 bloquear_email.bloquear_email(email) # Bloqueamos el email
                 cuerpo_mail = cuerpo_mail + '\n' + f"Muchos mails por parte del email: '{email}', se procedio a bloquear el email.\n"
         else:

@@ -1,0 +1,8 @@
+Nombre Interfaz,Modo promiscuo,motivo
+
+lo,NO,
+virbr0,NO,
+virbr0-nic,NO,
+enp0s3,NO,
+
+Se le envio un mail al administrador si es que hubo interfaces de red en modo promiscuo
