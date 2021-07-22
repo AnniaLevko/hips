@@ -18,6 +18,8 @@ import sys
 sys.path.append('./base_de_datos/')
 from principal import cur
 
+
+
 load_dotenv()
 BD_PASSWORD = os.getenv('BD_PASSWORD')
 BD_USER = os.getenv('BD_USER')
@@ -40,6 +42,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+os.system('sudo python3 ./base_de_datos/guardar_archivos_binarios.py')# ejecutamos el script para que guarde los md5sum de lso archivos
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'

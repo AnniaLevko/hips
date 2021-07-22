@@ -12,7 +12,7 @@
                 <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                   <div class="icon"><i class="fas fa-users"></i></div>
                   <h4 class="title"><a href="/usuarios/usuarios_conectados"z>Usuarios Conectados</a></h4>
-                  <p class="description">Visualizar usuarios conectados y desde que origen (IP)</p>
+                  <p class="description">Visualizar usuarios conectados y desde que origen (IP).</p>
                 </div>
               </div>
         </a>
@@ -34,7 +34,7 @@
                 <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
                   <div class="icon"><i class="fas fa-tools"></i></div>
                   <h4 class="title"><a href="/sniffers/chequear_sniffer_tools">Chequear herramientas sniffers</a></h4>
-                  <p class="description">anhadir descripcion</p>
+                  <p class="description">Revisa si hay herramientas de sniffer ejecutadose.</p>
                 </div>
             </div>
         </a>
@@ -44,10 +44,12 @@
             <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
               <div class="icon"><i class="far fa-folder"></i></div>
               <h4 class="title"><a href="/verificar_tmp/verificar_script">Verificar /tmp</a></h4>
-              <p class="description">Verifica en el directorio /tmp, si existen archivos con extensiones sospechosas(.py, .sh, etc) o que sean script (ej #!/bin/bash)</p>
+              <p class="description">Verifica en el directorio /tmp, si existen archivos con extensiones sospechosas(.py, .sh, etc) o que sean script (ej #!/bin/bash).</p>
             </div>
           </div>
         </a>
+
+        
 
         
 
@@ -59,7 +61,7 @@
                 <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                   <div class="icon"><i class="fas fa-key"></i></div>
                   <h4 class="title"><a href="/verificar_logs/var_log_secure_mails"z>Failures Auth SMTP /var/log/secure</a></h4>
-                  <p class="description">anhadir descripcion</p>
+                  <p class="description">Revisa si hay masivos registros de auth failure en /var/log/secure.</p>
                 </div>
               </div>
         </a> 
@@ -69,7 +71,7 @@
               <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon"><i class="fas fa-lock"></i></div>
                 <h4 class="title"><a href="/verificar_logs/ataque_smtp_messages"z>Auth failure SMTP /var/log/messages </a></h4>
-                <p class="description">anhadir descripcion</p>
+                <p class="description">Revisa si hay masivos registros de auth failure en /var/log/messages.</p>
               </div>
             </div>
         </a> 
@@ -79,7 +81,7 @@
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <div class="icon"><i class="far fa-envelope"></i></div>
               <h4 class="title"><a href="/verificar_logs/ataque_smtp_maillog"z>Verificar Mails masivos /var/log/maillog </a></h4>
-              <p class="description">anhadir descripcion</p>
+              <p class="description">Verifica que no exista un correo que nos este hundiendo de mails.</p>
             </div>
           </div>
         </a>
@@ -89,7 +91,7 @@
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <div class="icon"><i class="fas fa-times"> 404</i></div>
               <h4 class="title"><a href="/verificar_logs/access_log_errores"z>Errores /var/log/httpd/access.log</a></h4>
-              <p class="description">anhadir descripcion</p>
+              <p class="description">Verifica que no exista muchas respuestas http 404 de parte de una misma IP.</p>
             </div>
           </div>
         </a> 
@@ -102,7 +104,7 @@
                 <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                   <div class="icon"><i class="fas fa-cubes"></i></div>
                   <h4 class="title"><a href="/verificar_logs/ataque_ddos_dns"z>Verificar ATAQUE DDOS DNS</a></h4>
-                  <p class="description">anhadir descripcion</p>
+                  <p class="description">Verifica que no haya ataques DDOS mediante envios de paquetes.</p>
                 </div>
               </div>
         </a> 
@@ -112,7 +114,7 @@
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <div class="icon"><i class="fas fa-network-wired"></i></div>
               <h4 class="title"><a href="/sniffers/check_net_interfaces"z>Mirar Interfaces de red</a></h4>
-              <p class="description">anhadir descripcion</p>
+              <p class="description">Verifica si alguna interfaz de red esta en modo promiscuo.</p>
             </div>
           </div>
         </a> 
@@ -122,12 +124,20 @@
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <div class="icon"><i class="fas fa-mail-bulk"></i></div>
               <h4 class="title"><a href="/cola_correo/verificar_queue_size"z>Ver cola en MAILQ</a></h4>
-              <p class="description">anhadir descripcion</p>
+              <p class="description">Revisa si la cola de mail con mailq esta sobrecargada.</p>
             </div>
           </div>
         </a> 
 
-
+        <a style="display: block;" href="/base_de_datos/verificar_archivos_binarios"></a>
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+              <div class="icon"><i class="fas fa-hashtag"></i></div>
+              <h4 class="title"><a href="/base_de_datos/verificar_archivos_binarios">Revisar md5sum</a></h4>
+              <p class="description">Verifica si hubo cambios en los archivos /etc/shaddow y /etc/passwd. </p>
+            </div>
+          </div>
+        </a>
 
 
       </div>

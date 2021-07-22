@@ -14,10 +14,10 @@ def borrar_archivos_binarios():
     
 
 
-passwd_dir = "/etc/passwd"
-shadow_dir = "/etc/shadow"
-dirs = [passwd_dir, shadow_dir]
-def guardar_archivos_binarios(dirs):
+PASSWD_DIR = "/etc/passwd"
+SHADOW_DIR = "/etc/shadow"
+DIRS = [PASSWD_DIR, SHADOW_DIR]
+def guardar_archivos_binarios():
     # Agarramos todos los archivos binarios del sistema
     # bin_path = "/bin/"
     # files_list = os.listdir(bin_path)
@@ -26,7 +26,7 @@ def guardar_archivos_binarios(dirs):
     #print(files_list)
 
     # Conseguimos el md5sum de cada archivo y guardamos en la base de datos
-    for dir in dirs:
+    for dir in DIRS:
 
         command = f"md5sum {dir}" #+ " | awk '{print $1}'"
         file_with_md5sum = os.popen(command).read().split() # Guardamos en una lista el nombre del archivo y su md5sum
@@ -47,7 +47,5 @@ def guardar_archivos_binarios(dirs):
 
     
 borrar_archivos_binarios()        
-guardar_archivos_binarios(dirs)
+guardar_archivos_binarios()
 
-cur.execute("select * from file;")
-print(cur.fetchall())
