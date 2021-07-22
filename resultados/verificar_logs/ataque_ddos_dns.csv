@@ -1,8 +1,0 @@
-IP ATACANTE,IP DESTINO,motivo
-
-87.211.5.65.3531,201.217.5.142.53,Se registraron muchos paquetes desde el IP atacante al IP destino
-87.211.5.65.34749,201.217.5.142.53,Se registraron muchos paquetes desde el IP atacante al IP destino
-89.40.233.100.18749,201.217.5.142.53,Se registraron muchos paquetes desde el IP atacante al IP destino
-87.211.5.65.24045,201.217.5.142.53,Se registraron muchos paquetes desde el IP atacante al IP destino
-
-Se bloqueo los IP's atacantes y se envio al mail del administrador la prevencion.

@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, redirect, url_for, send_from_directory
 import subprocess
 import os
+from dotenv import load_dotenv
 import time
 import csv
 from flask_bootstrap import Bootstrap
@@ -17,7 +18,10 @@ import sys
 sys.path.append('./base_de_datos/')
 from principal import cur
 
-
+load_dotenv()
+BD_PASSWORD = os.getenv('BD_PASSWORD')
+BD_USER = os.getenv('BD_USER')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 class LoginForm(FlaskForm):
     email = StringField(label='Username', validators=[DataRequired()])
@@ -26,10 +30,10 @@ class LoginForm(FlaskForm):
 
 
 app = Flask(__name__)
-app.secret_key = "hamburgesa-y-comida-china"
+app.secret_key = SECRET_KEY
 Bootstrap(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://root:erikannia7@localhost/hips2021"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{BD_USER}:{BD_PASSWORD}@localhost/hips2021"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -79,7 +83,7 @@ def dar_resultado(folder, program_name):
         for row in csv_data:
             list_of_rows.append(row)
         
-        
+    os.system(f'sudo rm -r ./resultados/{folder}/{program_name}.csv') # Borramos el archivo .csv ya que ya guardamos los resultados
     # Renderizamos el template verResultado.html con el texto (resultado de la funcion) y su titulo (nombre del programa que se ejecuto)
     return render_template("verResultado.html", texto = list_of_rows, titulo = titulo)
 

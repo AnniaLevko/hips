@@ -1,5 +1,0 @@
-Usuario involucrado,motivo
-
-condorito,Muchas entradas de auth failure de stmp en el archivo /var/log/messages
-
-Se cambio la contrasenha de estos usuarios y se envio al mail del administrador las nuevas contrasenhas.

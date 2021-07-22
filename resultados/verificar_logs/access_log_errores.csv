@@ -1,6 +1,0 @@
-IP involucrado,motivo
-
-222.186.21.182,Muchas errores de carga de paginas desde un mismo IP
-222.186.21.179,Muchas errores de carga de paginas desde un mismo IP
-
-Se bloque los IP's y se envio al mail del administrador la alerta.

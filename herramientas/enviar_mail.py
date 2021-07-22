@@ -1,9 +1,15 @@
 import smtplib
+import os
+from dotenv import load_dotenv
 
-MY_HIPS_EMAIL = "erikanniahipsserver1@gmail.com"
-MY_HIPS_EMAIL_PASSWORD = "erikannia7"
+load_dotenv()
+BD_PASSWORD = os.getenv('BD_PASSWORD')
+BD_USER = os.getenv('BD_USER')
 
-MAIL_HIPS_ADMIN = "jefehips2021@gmail.com"
+MY_HIPS_EMAIL = os.getenv("MY_HIPS_EMAIL")
+MY_HIPS_EMAIL_PASSWORD = os.getenv("MY_HIPS_EMAIL_PASSWORD")
+
+MAIL_HIPS_ADMIN = os.getenv("MAIL_HIPS_ADMIN")
 
 connection = smtplib.SMTP("smtp.gmail.com")
 connection.starttls()
