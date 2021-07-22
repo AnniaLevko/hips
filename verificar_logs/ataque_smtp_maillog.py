@@ -38,7 +38,7 @@ def verificar_ataques_smtp_maillog():
     # Si se encuentra comportamiento extranho, escribimos el mensaje del csv y enviamos una alerta(mail) al admin
     if lista_para_csv:
         asunto_mail = 'MASIVOS EMAILS de SMTP en /var/log/maillog!'
-        mensaje_final = "Se cambio la contrasenha de estos usuarios y se envio al mail del administrador las nuevas contrasenhas."
+        mensaje_final = "Se bloqueo estos mails y se aviso al mail del administrador."
         enviar_mail.enviar_mail_asunto_body(tipo_alerta='PREVENCION!', asunto= asunto_mail, cuerpo=cuerpo_mail) # Envia el mail al administrador
     
     # Creamos el csv para mostrar en la web despues.
