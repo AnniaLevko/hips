@@ -157,6 +157,7 @@ def check_libraries(pid):
 # log_promiscuo_mode()
 # check_net_interfaces()
 check_sniffer_tools()
+#check_libraries(15822)
 
 
 
