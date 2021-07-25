@@ -21,20 +21,20 @@
   <summary>Tabla de contenido</summary>
   <ol>
     <li>
-      <a href="#about-the-project">Acerca del proyecto</a>
+      <a href="#acerca-del-proyecto">Acerca del proyecto</a>
       <ul>
-        <li><a href="#built-with">Construido con</a></li>
+        <li><a href="#construido-con">Construido con</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Comenzando</a>
+      <a href="#comenzando">Comenzando</a>
       <ul>
-        <li><a href="#prerequisites">Pre requisitos</a></li>
-        <li><a href="#installation">Instalacion</a></li>
+        <li><a href="#pre-requisitos">Pre requisitos</a></li>
+        <li><a href="#installacion">Instalacion</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Uso</a></li>
-    <li><a href="#contact">Contacto</a></li>
+    <li><a href="#uso">Uso</a></li>
+    <li><a href="#contacto">Contacto</a></li>
   </ol>
 </details>
 
