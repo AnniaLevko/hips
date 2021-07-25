@@ -30,7 +30,7 @@
       <a href="#comenzando">Comenzando</a>
       <ul>
         <li><a href="#pre-requisitos">Pre requisitos</a></li>
-        <li><a href="#installacion">Instalacion</a></li>
+        <li><a href="#instalacion">Instalacion</a></li>
       </ul>
     </li>
     <li><a href="#uso">Uso</a></li>
@@ -334,7 +334,7 @@ Para ejecutar el sistema debemos seguir una serie de pasos, para que el sistema 
 * Pagina de logeo
 <p align="center">
   <a href="">
-    <img src="./static/images/login.png" alt="Logo" width="1600" height="500">
+    <img src="./static/images/login.png" alt="Logo" width="2323" height="1225">
   </a>
  
 </p>
