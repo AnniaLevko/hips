@@ -316,6 +316,9 @@ Para ejecutar el sistema debemos seguir una serie de pasos, para que el sistema 
 
   Creamos directorios para guardar los archivos a cuarentena
   ```sh
+  mkdir /cuarentena
+  ```
+  ```sh
   mkdir /cuarentena/sniffer_tools
   ```
   ```sh
