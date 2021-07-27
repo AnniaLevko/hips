@@ -19,31 +19,37 @@ sys.path.append('./base_de_datos/')
 from principal import cur
 
 
-
+# Inicializamos el entorno virtual con dotenv y cargamos las contrasenhas en las variables
 load_dotenv()
 BD_PASSWORD = os.getenv('BD_PASSWORD')
 BD_USER = os.getenv('BD_USER')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
+# Clase para traer los inputs del form
 class LoginForm(FlaskForm):
     email = StringField(label='Username', validators=[DataRequired()])
     password = PasswordField(label='Password', validators=[DataRequired()])
     submit = SubmitField(label="Log In") 
 
 
+# Incializamos flask
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
 Bootstrap(app)
 
+# Inicializamos sqlachemy para conectar posgresql (usaremos para que funcione el login)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{BD_USER}:{BD_PASSWORD}@localhost/hips2021"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+# Inicializamos el modulo de login
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+# Cargamos los hash de md5sum actuales, apenas inicia el sistema
 os.system('sudo python3 ./base_de_datos/guardar_archivos_binarios.py')# ejecutamos el script para que guarde los md5sum de lso archivos
 
+# un modelo de la tabla users para la base de datos. Para usarlo con el Login
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
@@ -55,7 +61,7 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-    
+# ruta main, si el user ya esta logeado, entonces le lleva a /tools, si no a /login    
 @app.route("/", methods=['Get'])
 def home():
     if current_user.is_authenticated:
@@ -63,7 +69,7 @@ def home():
     else:
         return redirect(url_for("login"))
 
-
+# Ruta donde se ve todos las herramientas de hips que el usuario puede usar
 @app.route('/tools')
 @login_required
 def tools():
@@ -71,7 +77,7 @@ def tools():
     print(cur.fetchall())
     return render_template('tools.html')
 
-
+# Ruta dinamica en el cual se muestra los resultados de las herramientras
 @app.route('/<folder>/<program_name>')
 @login_required
 def dar_resultado(folder, program_name):
@@ -90,7 +96,7 @@ def dar_resultado(folder, program_name):
     # Renderizamos el template verResultado.html con el texto (resultado de la funcion) y su titulo (nombre del programa que se ejecuto)
     return render_template("verResultado.html", texto = list_of_rows, titulo = titulo)
 
-
+# Ruta de login
 @app.route("/login", methods = ["GET", "POST"])
 def login():
     login_form = LoginForm()
@@ -118,7 +124,7 @@ def login():
     return render_template('login.html', form=login_form)
 
 
-
+# ruta de logout
 @app.route('/logout')
 def logout():
     logout_user()

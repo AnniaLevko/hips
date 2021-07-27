@@ -313,6 +313,14 @@ Para ejecutar el sistema debemos seguir una serie de pasos, para que el sistema 
   ```sh
     [root@localhost hips] mkdir ./resultados/verificar_tmp
   ```
+
+  Creamos directorios para guardar los archivos a cuarentena
+  ```sh
+  mkdir /cuarentena/sniffer_tools
+  ```
+  ```sh
+  mkdir /cuarentena/tmp_scripts
+  ```
 ## Crear directorios para archivos log
 *
   Para guardar los registros de alarmas y prevenciones debemos primero crear los directorios donde se almacenaran estos mismos.
